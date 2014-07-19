@@ -1,0 +1,37 @@
+{
+  "name": "require-uncached",
+  "version": "1.0.1",
+  "description": "Require a module bypassing the cache",
+  "license": "MIT",
+  "repository": "sindresorhus/require-uncached",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "http://sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "require",
+    "cache",
+    "uncache",
+    "uncached",
+    "module",
+    "fresh",
+    "bypass"
+  ],
+  "dependencies": {
+    "caller-path": "^0.1.0",
+    "resolve-from": "^1.0.0"
+  },
+  "devDependencies": {
+    "ava": "0.0.3"
+  }
+}
