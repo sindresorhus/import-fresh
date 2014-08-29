@@ -9,10 +9,19 @@ module.exports = function (moduleId) {
 	}
 
 	var filePath = resolveFrom(path.dirname(callerPath()), moduleId);
-	var tmp = require.cache[filePath];
-	delete require.cache[filePath];
+
+	var cache = {};
+	for (var beforeKey in require.cache) {
+		cache[beforeKey] = true;
+	}
+
 	var ret = require(filePath);
-	require.cache[filePath] = tmp;
+
+	for (var afterKey in require.cache) {
+		if (!cache[afterKey]) {
+			delete require.cache[afterKey];
+		}
+	}
 
 	return ret;
 };
