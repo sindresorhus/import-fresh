@@ -39,6 +39,11 @@ requireUncached('./foo')();
 ```
 
 
+## Related
+
+- [clear-require](https://github.com/sindresorhus/clear-require) - Clear a module from the require cache
+
+
 ## License
 
 MIT © [Sindre Sorhus](http://sindresorhus.com)
