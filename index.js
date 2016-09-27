@@ -9,10 +9,19 @@ module.exports = function (moduleId) {
 	}
 
 	var filePath = resolveFrom(path.dirname(callerPath()), moduleId);
-	var tmp = require.cache[filePath];
+	
+	// delete itselft from module parent
+	if (require.cache[filePath].parent) {
+		var i = require.cache[filePath].parent.children.length;
+		while (i--) {
+		  if (require.cache[filePath].parent.children[i].id === filePath) {
+				require.cache[filePath].parent.children.splice(i, 1);
+			}
+		}
+	}
+	// delete module form cache
 	delete require.cache[filePath];
-	var ret = require(filePath);
-	require.cache[filePath] = tmp;
-
-	return ret;
+	
+	// return fresh module
+	return require(filePath);
 };
