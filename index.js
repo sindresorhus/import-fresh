@@ -10,16 +10,16 @@ module.exports = function (moduleId) {
 
 	var filePath = resolveFrom(path.dirname(callerPath()), moduleId);
 	
-	// delete itselft from module parent
+	// delete itself from module parent
 	if (require.cache[filePath] && require.cache[filePath].parent) {
 		var i = require.cache[filePath].parent.children.length;
 		while (i--) {
-		  if (require.cache[filePath].parent.children[i].id === filePath) {
+			if (require.cache[filePath].parent.children[i].id === filePath) {
 				require.cache[filePath].parent.children.splice(i, 1);
 			}
 		}
 	}
-	// delete module form cache
+	// delete module from cache
 	delete require.cache[filePath];
 	
 	// return fresh module
