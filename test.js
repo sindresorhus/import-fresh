@@ -1,13 +1,12 @@
-'use strict';
-var test = require('ava');
-var requireUncached = require('./');
+import test from 'ava';
+import m from './';
 
-test('require a module', function (t) {
-	var id = './fixture';
-	t.assert(require(id)() === 1);
-	t.assert(require(id)() === 2);
-	t.assert(require(id)() === 3);
-	t.assert(requireUncached(id)() === 1);
-	t.assert(requireUncached(id)() === 1);
-	t.assert(requireUncached(id)() === 1);
+test(t => {
+	const id = './fixture';
+	t.is(require(id)(), 1);
+	t.is(require(id)(), 2);
+	t.is(require(id)(), 3);
+	t.is(m(id)(), 1);
+	t.is(m(id)(), 1);
+	t.is(m(id)(), 1);
 });

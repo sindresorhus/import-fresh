@@ -7,13 +7,13 @@
   "author": {
     "name": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
-    "url": "http://sindresorhus.com"
+    "url": "sindresorhus.com"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "node test.js",
+    "test": "xo && ava",
     "test:memory": "node test-memory.js"
   },
   "files": [
@@ -33,7 +33,13 @@
     "resolve-from": "^1.0.0"
   },
   "devDependencies": {
-    "ava": "0.0.3",
+    "ava": "*",
+    "xo": "^0.16.0",
     "heapdump": "^0.3.7"
+  },
+  "xo": {
+    "rules": {
+      "import/no-dynamic-require": "off"
+    }
   }
 }
