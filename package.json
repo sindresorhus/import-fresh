@@ -1,6 +1,6 @@
 {
   "name": "require-uncached",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Require a module bypassing the cache",
   "license": "MIT",
   "repository": "sindresorhus/require-uncached",
