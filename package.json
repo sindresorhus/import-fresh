@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "xo && ava",
-    "heapdump": "node heapdump.js"
+    "heapdump": "optional-dev-dependency && node heapdump.js"
   },
   "files": [
     "index.js"
@@ -34,12 +34,16 @@
   },
   "devDependencies": {
     "ava": "*",
-    "xo": "^0.16.0",
+    "optional-dev-dependency": "^1.4.0",
+    "xo": "^0.16.0"
+  },
+  "optionalDevDependencies": {
     "heapdump": "^0.3.7"
   },
   "xo": {
     "rules": {
-      "import/no-dynamic-require": "off"
+      "import/no-dynamic-require": "off",
+      "import/no-extraneous-dependencies": "off"
     }
   }
 }
