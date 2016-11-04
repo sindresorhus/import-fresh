@@ -13,7 +13,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "xo && ava"
+    "test": "xo && ava",
+    "test:memory": "node test-memory.js"
   },
   "files": [
     "index.js"
@@ -33,7 +34,8 @@
   },
   "devDependencies": {
     "ava": "*",
-    "xo": "^0.16.0"
+    "xo": "^0.16.0",
+    "heapdump": "^0.3.7"
   },
   "xo": {
     "rules": {
