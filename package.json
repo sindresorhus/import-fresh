@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "xo && ava",
-    "test:memory": "node test-memory.js"
+    "heapdump": "node heapdump.js"
   },
   "files": [
     "index.js"
