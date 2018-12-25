@@ -8,7 +8,7 @@ Useful for testing purposes when you need to freshly import a module.
 ## Install
 
 ```
-$ npm install --save import-fresh
+$ npm install import-fresh
 ```
 
 
