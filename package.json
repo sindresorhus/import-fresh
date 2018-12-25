@@ -29,11 +29,11 @@
     "bypass"
   ],
   "dependencies": {
-    "caller-path": "^2.0.0",
+    "parent-module": "^1.0.0",
     "resolve-from": "^3.0.0"
   },
   "devDependencies": {
-    "ava": "*",
+    "ava": "^0.25.0",
     "optional-dev-dependency": "^2.0.1",
     "xo": "^0.18.2"
   },
