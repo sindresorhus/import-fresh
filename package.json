@@ -13,11 +13,12 @@
 		"node": ">=6"
 	},
 	"scripts": {
-		"test": "xo && ava",
+		"test": "xo && ava && tsd",
 		"heapdump": "node heapdump.js"
 	},
 	"files": [
-		"index.js"
+		"index.js",
+		"index.d.ts"
 	],
 	"keywords": [
 		"require",
@@ -35,6 +36,7 @@
 	"devDependencies": {
 		"ava": "^1.0.1",
 		"heapdump": "^0.3.12",
+		"tsd": "^0.7.3",
 		"xo": "^0.23.0"
 	}
 }
