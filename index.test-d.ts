@@ -1,5 +1,5 @@
 import {expectType, expectError} from 'tsd';
 import importFresh = require('.');
 
-expectType<any>(importFresh('hello'));
+expectType<unknown>(importFresh('hello'));
 expectError(importFresh());
