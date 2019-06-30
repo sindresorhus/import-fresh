@@ -6,9 +6,8 @@ Import a module while bypassing the cache.
 // foo.js
 let i = 0;
 module.exports = () => ++i;
-```
 
-```
+// index.js
 import importFresh = require('import-fresh');
 
 require('./foo')();
