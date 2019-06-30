@@ -9,7 +9,7 @@ module.exports = () => ++i;
 ```
 
 ```
-const importFresh = require('import-fresh');
+import importFresh = require('import-fresh');
 
 require('./foo')();
 //=> 1
@@ -24,6 +24,6 @@ importFresh('./foo')();
 //=> 1
 ```
 */
-declare function importFresh(moduleId: string): any;
+declare function importFresh(moduleId: string): unknown;
 
 export = importFresh;
