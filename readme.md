@@ -49,7 +49,7 @@ importFresh('./foo')();
 
 <div align="center">
 	<b>
-		<a href="https://tidelift.com/subscription/pkg/npm-require-uncached?utm_source=npm-require-uncached&utm_medium=referral&utm_campaign=readme">Get professional support for this package with a Tidelift subscription</a>
+		<a href="https://tidelift.com/subscription/pkg/npm-import-fresh?utm_source=npm-import-fresh&utm_medium=referral&utm_campaign=readme">Get professional support for this package with a Tidelift subscription</a>
 	</b>
 	<br>
 	<sub>
