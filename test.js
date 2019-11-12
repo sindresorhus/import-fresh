@@ -19,5 +19,5 @@ test('proper parent value', t => {
 	importFresh(id);
 
 	const childModule = require.cache[path.resolve(__dirname, `${id}.js`)];
-	t.true(childModule.parent === module);
+	t.is(childModule.parent, module);
 });
