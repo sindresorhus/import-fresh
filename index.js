@@ -8,15 +8,18 @@ module.exports = moduleId => {
 		throw new TypeError('Expected a string');
 	}
 
-	const filePath = resolveFrom(path.dirname(parentModule(__filename)), moduleId);
+	const parentPath = parentModule(__filename);
 
+	const filePath = resolveFrom(path.dirname(parentPath), moduleId);
+
+	const oldModule = require.cache[filePath];
 	// Delete itself from module parent
-	if (require.cache[filePath] && require.cache[filePath].parent) {
-		let i = require.cache[filePath].parent.children.length;
+	if (oldModule && oldModule.parent) {
+		let i = oldModule.parent.children.length;
 
 		while (i--) {
-			if (require.cache[filePath].parent.children[i].id === filePath) {
-				require.cache[filePath].parent.children.splice(i, 1);
+			if (oldModule.parent.children[i].id === filePath) {
+				oldModule.parent.children.splice(i, 1);
 			}
 		}
 	}
@@ -25,5 +28,5 @@ module.exports = moduleId => {
 	delete require.cache[filePath];
 
 	// Return fresh module
-	return require(filePath);
+	return require.cache[parentPath].require(filePath);
 };
