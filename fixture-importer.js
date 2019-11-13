@@ -1,6 +1,6 @@
 const importFresh = require('.');
 
-module.exports = (what) => {
+module.exports = what => {
 	return importFresh(what);
 };
 
