@@ -38,3 +38,24 @@ test('import when parent removed from cache', t => {
 		importer(id);
 	});
 });
+
+test('should not fail when there no parent module', t => {
+	const targetPath = require.resolve('parent-module');
+	const orignalModule = require.cache[targetPath];
+	delete require.cache[targetPath];
+	delete require.cache[require.resolve('.')];
+	require.cache[targetPath] = {
+		loaded: true,
+		id: targetPath,
+		exports: () => undefined
+	};
+
+	const id = './fixture-importer';
+	const importer = importFresh(id);
+
+	t.notThrows(() => {
+		importer(id);
+	});
+
+	require.cache[targetPath] = orignalModule;
+});

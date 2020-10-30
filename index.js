@@ -10,7 +10,7 @@ module.exports = moduleId => {
 
 	const parentPath = parentModule(__filename);
 
-	const filePath = resolveFrom(path.dirname(parentPath), moduleId);
+	const filePath = resolveFrom(path.dirname(parentPath || moduleId), moduleId);
 
 	const oldModule = require.cache[filePath];
 	// Delete itself from module parent
