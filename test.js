@@ -39,7 +39,7 @@ test('import when parent removed from cache', t => {
 	});
 });
 
-test('should not fail when there no parent module', t => {
+test('should not fail when there is no parent module', t => {
 	const targetPath = require.resolve('parent-module');
 	const orignalModule = require.cache[targetPath];
 	delete require.cache[targetPath];
