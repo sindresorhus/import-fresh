@@ -22,7 +22,7 @@ importFresh('./foo')();
 importFresh('./foo')();
 //=> 1
 
-const foo = importFresh<typeof import('./foo')>('./foo')
+const foo = importFresh<typeof import('./foo')>('./foo');
 ```
 */
 declare function importFresh<T>(moduleId: string): T;
