@@ -3,13 +3,13 @@ const heapdump = require('heapdump'); // eslint-disable-line import/no-unresolve
 const importFresh = require('.');
 
 for (let i = 0; i < 100000; i++) {
-	require('./fixture.js')();
+	require('./fixture')();
 }
 
 heapdump.writeSnapshot(`require-${Date.now()}.heapsnapshot`);
 
 for (let i = 0; i < 100000; i++) {
-	importFresh('./fixture.js')();
+	importFresh('./fixture')();
 }
 
 heapdump.writeSnapshot(`import-fresh-${Date.now()}.heapsnapshot`);
