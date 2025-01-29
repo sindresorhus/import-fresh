@@ -1,6 +1,6 @@
 import {expectType, expectError} from 'tsd';
 import importFresh = require('.');
-import path = require('path');
+import path = require('node:path');
 
 expectType<unknown>(importFresh('hello'));
 expectError(importFresh());
