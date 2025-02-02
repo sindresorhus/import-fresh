@@ -18,8 +18,8 @@ const {default: foo} = await importFresh('foo');
 
 ## Install
 
-```
-$ npm install import-fresh
+```sh
+npm install import-fresh
 ```
 
 ## Usage
