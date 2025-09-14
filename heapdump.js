@@ -1,15 +1,20 @@
-'use strict';
-const heapdump = require('heapdump'); // eslint-disable-line import/no-unresolved
-const importFresh = require('.');
+import heapdump from 'heapdump';
+import createImportFresh from './index.js';
 
-for (let i = 0; i < 100000; i++) {
-	require('./fixture.js')();
+const importFresh = createImportFresh(import.meta.url);
+
+const {default: fixture} = await import('./tests/fixtures/increment.js');
+
+for (let index = 0; index < 100_000; index++) {
+	fixture();
 }
 
-heapdump.writeSnapshot(`require-${Date.now()}.heapsnapshot`);
+heapdump.writeSnapshot(`import-${Date.now()}.heapsnapshot`);
 
-for (let i = 0; i < 100000; i++) {
-	importFresh('./fixture.js')();
+for (let index = 0; index < 100_000; index++) {
+	// eslint-disable-next-line no-await-in-loop
+	const {default: freshFixture} = await importFresh('./tests/fixtures/increment.js');
+	freshFixture();
 }
 
 heapdump.writeSnapshot(`import-fresh-${Date.now()}.heapsnapshot`);

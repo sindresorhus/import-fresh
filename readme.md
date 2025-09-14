@@ -1,20 +1,12 @@
 # import-fresh
 
-> Import a module while bypassing the [cache](https://nodejs.org/api/modules.html#modules_caching)
+> Import a module while bypassing the cache
 
 Useful for testing purposes when you need to freshly import a module.
 
-## ESM
+## Requirements
 
-For ESM, you can use this snippet:
-
-```js
-const importFresh = moduleName => import(`${moduleName}?${Date.now()}`);
-
-const {default: foo} = await importFresh('foo');
-```
-
-**This snippet causes a memory leak, so only use it for short-lived tests.**
+- Node.js 22.15 or later (uses module loader hooks)
 
 ## Install
 
@@ -26,25 +18,69 @@ npm install import-fresh
 
 ```js
 // foo.js
-let i = 0;
-module.exports = () => ++i;
+let count = 0;
+export default function increment() {
+	count += 1;
+	return count;
+}
 ```
 
 ```js
-const importFresh = require('import-fresh');
+import createImportFresh from 'import-fresh';
 
-require('./foo')();
+const importFresh = createImportFresh(import.meta.url);
+const {default: increment} = await importFresh('./foo.js');
+
+increment();
 //=> 1
 
-require('./foo')();
+increment();
 //=> 2
 
-importFresh('./foo')();
-//=> 1
+const {default: freshIncrement} = await importFresh('./foo.js');
 
-importFresh('./foo')();
+freshIncrement();
 //=> 1
 ```
+
+## API
+
+### createImportFresh(parentURL, options?)
+
+Returns an `importFresh` function bound to `parentURL`.
+
+`parentURL` must be a valid hierarchical URL string (for example `import.meta.url`) or a `URL` instance.
+
+#### options
+
+Type: `object`
+
+The options are process-global. Every call in the same process must use the same `skipNodeModules` value.
+
+##### skipNodeModules
+
+Type: `boolean`\
+Default: `false`
+
+When `true`, modules inside `node_modules` directories are not cache-busted. This means that dependencies from npm packages will share state across fresh imports, which can be useful when you only want to freshly import your own code.
+
+### importFresh(moduleSpecifier, options?)
+
+The function returned by `createImportFresh`.
+
+#### options
+
+Type: `object`
+
+##### importAttributes
+
+Type: `object`
+
+Import attributes passed to `import()`. Each value must be a string. JSON modules are automatically imported with `{type: 'json'}` when the specifier ends with `.json`.
+
+## Caveat
+
+Intended for development usage only. Repeated calls grow the ESM module cache because each call uses a unique cache-busting URL. This is an unavoidable “memory leak” and not considered a vulnerability.
 
 ## Related
 
