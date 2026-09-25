@@ -419,6 +419,47 @@ test('JSON modules keep automatic type attribute when importAttributes.type is n
 	assert.deepStrictEqual(moduleNamespace.default, {count: 1});
 });
 
+test('CommonJS targets reject a JSON type attribute before execution', async () => {
+	const sideEffectCountBefore = globalThis.__importFreshAttributeSideEffectCount ?? 0;
+
+	await assert.rejects(
+		importFresh('./fixtures/cjs-import-attribute-side-effect.cjs', {importAttributes: {type: 'json'}}),
+		{code: 'ERR_IMPORT_ATTRIBUTE_TYPE_INCOMPATIBLE'},
+	);
+
+	assert.strictEqual(globalThis.__importFreshAttributeSideEffectCount ?? 0, sideEffectCountBefore);
+});
+
+test('CommonJS targets reject an unsupported import attribute before execution', async () => {
+	const sideEffectCountBefore = globalThis.__importFreshAttributeSideEffectCount ?? 0;
+
+	await assert.rejects(
+		importFresh('./fixtures/cjs-import-attribute-side-effect.cjs', {importAttributes: {type: 'commonjs'}}),
+		{code: 'ERR_IMPORT_ATTRIBUTE_UNSUPPORTED'},
+	);
+
+	assert.strictEqual(globalThis.__importFreshAttributeSideEffectCount ?? 0, sideEffectCountBefore);
+});
+
+test('CommonJS targets reject an unknown import attribute before execution', async () => {
+	const sideEffectCountBefore = globalThis.__importFreshAttributeSideEffectCount ?? 0;
+
+	await assert.rejects(
+		importFresh('./fixtures/cjs-import-attribute-side-effect.cjs', {importAttributes: {unknown: 'value'}}),
+		{code: 'ERR_IMPORT_ATTRIBUTE_UNSUPPORTED'},
+	);
+
+	assert.strictEqual(globalThis.__importFreshAttributeSideEffectCount ?? 0, sideEffectCountBefore);
+});
+
+test('CommonJS targets accept an empty import attribute object', async () => {
+	const moduleNamespace = await importFresh('./fixtures/cjs-import-attribute-side-effect.cjs', {
+		importAttributes: {},
+	});
+
+	assert.deepStrictEqual(moduleNamespace.default, {count: 1});
+});
+
 test('fresh import busts cache for data URLs', async () => {
 	const dataUrl = 'data:text/javascript,let count = 0; export default () => ++count;';
 	const {default: first} = await importFresh(dataUrl);

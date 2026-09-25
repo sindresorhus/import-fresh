@@ -745,6 +745,8 @@ function loadWithCacheKey(url, context, nextLoad) {
 		return assertSynchronousLoaderHookResult(nextLoad(url, context));
 	}
 
+	assertCommonJsHasNoImportAttributes(parsedWrapperSpecifier.fileUrl, context.importAttributes);
+
 	const modulePath = prepareFreshCommonJsModule(parsedWrapperSpecifier.fileUrl, parsedWrapperSpecifier.cacheKey);
 	const requireFunction = createRequireFromParentUrl(runtimeState.cjsWrapperParentUrls.get(url));
 	clearFreshRequireCache(requireFunction.cache, modulePath);
@@ -766,6 +768,20 @@ function loadWithCacheKey(url, context, nextLoad) {
 		shortCircuit: true,
 		source: createCommonJsWrapperSource(wrapperCacheKey, getCommonJsExportNames(exports)),
 	};
+}
+
+// Node rejects every import attribute on a CommonJS target, so match that before the target runs.
+function assertCommonJsHasNoImportAttributes(url, importAttributes) {
+	if (Object.keys(importAttributes ?? {}).length === 0) {
+		return;
+	}
+
+	const {type} = importAttributes;
+	const error = new TypeError(`Import attributes are not supported for the CommonJS module "${url}".`);
+
+	error.code = type === 'json' ? 'ERR_IMPORT_ATTRIBUTE_TYPE_INCOMPATIBLE' : 'ERR_IMPORT_ATTRIBUTE_UNSUPPORTED';
+
+	throw error;
 }
 
 function validateCreateImportFreshOptions(options) {
