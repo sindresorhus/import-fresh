@@ -1,6 +1,6 @@
 {
 	"name": "import-fresh",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Import a module while bypassing the cache",
 	"license": "MIT",
 	"repository": "sindresorhus/import-fresh",
